@@ -24,6 +24,7 @@ Desteklenen SMS Firmaları
 ----------------------
 
 * ClickAtell (Global)
+* Modexi (Hemenposta)
 * NetGsm (Türkiye)
 * UcuzSmsAl (Türkiye)
 * Mutlucell (Türkiye)
