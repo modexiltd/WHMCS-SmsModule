@@ -15,8 +15,8 @@ class hemenposta extends AktuelSms {
 
         $params = $this->getParams();
 
-        $postUrl = "http://sms.modexi.com/service/sendxml";
-        $xmlString="<SMS><authentification><username>$params->user</username><password>$params->pass</password></authentification><message><sender>$params->senderid</sender></message><recipients><text>$this->message</text><gsm>$this->gsmnumber</gsm></recipients></SMS>";
+        $postUrl = "http://sdp.modexi.com/view/xmlpost";
+        $xmlString="<packet version=\"1.0\"><header><username>$params->user</username><password>$params->pass</password></header><body><message><sender>$params->senderid</sender><recipients><text>$this->message</text><gsm>$this->gsmnumber</gsm></recipients></message></body></packet>";
 
         $fields = $xmlString;
         $ch = curl_init();
@@ -31,12 +31,12 @@ class hemenposta extends AktuelSms {
         $return = $result;
         $log[] = ("Sunucudan dönen cevap: ".$result);
 
-        if(preg_match('/<status>(.*?)<\/status>(.*?)<DESC>(.*?)<\/DESC>(.*?)<package>(.*?)<\/package>/si', $result, $result_matches)) {
+        if(preg_match('/<status>(.*?)<\/status>(.*?)<description>(.*?)<\/description>(.*?)<Id>(.*?)<\/Id>/si', $result, $result_matches)) {
             $status_code = $result_matches[1];
             $status_message = $result_matches[3];
             $order_id = $result_matches[5];
 
-            if($status_code > 0) {
+            if($status_code = 'SUCCESS') {
                 $log[] = ("Message sent.");
             } else {
                 $log[] = ("Mesaj gönderilemedi. Hata: $status_message");
